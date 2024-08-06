@@ -20,6 +20,15 @@ fun ChaseScreen(
 
     val chaneNavController = rememberNavController()
 
+    fun onBack() {
+        chaneNavController.popBackStack(
+            destinationId = chaneNavController.graph.startDestinationId,
+            inclusive = true,
+            saveState = false
+        )
+        onBackPressed()
+    }
+
     Scaffold(
         topBar = {
             AppTopBar(
@@ -41,19 +50,17 @@ fun ChaseScreen(
             NavHost(navController = chaneNavController, startDestination = "a") {
                 composable(route = "a") {
                     A(onBackPress = {
-                        chaneNavController.popBackStack(
-                            destinationId = chaneNavController.graph.startDestinationId,
-                            inclusive = true,
-                            saveState = false
-                        )
+                        onBack()
                     })
                 }
-                composable(route = "b") { B(onBackPress = { }) }
-                composable(route = "c") { C(onBackPress = { }) }
+                composable(route = "b") { B(onBackPress = { onBack() }) }
+                composable(route = "c") { C(onBackPress = { onBack() }) }
             }
         }
 
     }
+
+
 
 //    AppBackHandler {
 //        onBackPressed()

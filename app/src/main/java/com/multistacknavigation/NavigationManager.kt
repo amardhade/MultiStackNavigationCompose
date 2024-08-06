@@ -119,7 +119,7 @@ fun navigateToHomeTabs(route: String, navController: NavHostController) {
 }
 
 fun navigateToHome(navController: NavHostController) {
-    navController.navigate(Routes.HOME) {
+    navController.navigate(Routes.HOME_SCREEN) {
         popUpTo(navController.graph.id) {
             inclusive = false
         }
