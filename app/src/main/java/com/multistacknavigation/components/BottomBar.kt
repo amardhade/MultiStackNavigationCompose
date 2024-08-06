@@ -46,15 +46,15 @@ fun BottomBar(
         NavigationItem.Settings
     )
 
-//    tabs.forEachIndexed { index, navigationItem ->
-//        if (currentRouteState.value == navigationItem.route) tabIndex = index
-//    }
-
-    fun isSelected(route: String): Boolean {
-        return currentDestination?.hierarchy?.any { dest ->
-            dest.route.equals(route, false)
-        } ?: false
+    tabs.forEachIndexed { index, navigationItem ->
+        if (currentRouteState.value == navigationItem.route) tabIndex = index
     }
+
+//    fun isSelected(route: String): Boolean {
+//        return currentDestination?.hierarchy?.any { dest ->
+//            dest.route?.equals(route, false) == true
+//        } ?: false
+//    }
 
     AnimatedVisibility(
         visible = bottomBarState.value,
@@ -63,7 +63,7 @@ fun BottomBar(
     ) {
         TabRow(modifier = modifier, selectedTabIndex = tabIndex) {
             tabs.forEachIndexed { index, navigationItem ->
-                Tab(selected = isSelected(navigationItem.route), onClick = {
+                Tab(selected = tabIndex == index, onClick = {
                     tabIndex = index
                     navController.navigate(navigationItem.route) {
 //                        navController.graph.startDestinationRoute?.let { route ->
@@ -94,7 +94,7 @@ fun BottomBar(
 sealed class NavigationItem(val route: String, val icon: Int, val title: String) {
 
     data object Home :
-        NavigationItem(route = Routes.HOME, icon = R.drawable.home_icon, title = "Home")
+        NavigationItem(route = Routes.HOME_SCREEN, icon = R.drawable.home_icon, title = "Home")
 
     data object Connects :
         NavigationItem(route = Routes.CONNECTS, icon = R.drawable.connects_icon, title = "Connects")
